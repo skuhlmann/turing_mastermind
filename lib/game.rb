@@ -1,87 +1,107 @@
 class Game
-	attr_reader :command, :printer, :target_sequence
+  attr_reader :command
+              :guess
+              :secret_sequence
 
-	def initialize
-		@command           = ""
-		@printer           = MessagePrinter.new
-		@target_sequence   = Target.new
-		@guess             = ""
-		@correct_colors    = 0
-		@correct_positions = 0
-	end
+  def initialize
+    @command         = ""
+    @guess           = ""
+    @secret_code     = []
+  end
 
-	def start
-		puts "Welcome to MASTERMIND"
-		puts "Would you like to (p)lay, read the (i)nstructions, or (q)uit?"
-		until finished?
-			@command = gets.strip
-			process_initial_game_commands
-		end
-		puts "Thanks for playing MASTERMIND"
-	end	
+  def start
+    puts "Welcome to MASTERMIND"
+    until exit?
+      puts "(p)lay starts a game\n(q)uit ends a game\n(i)nstructions gives you instructions."
+      @command = gets.strip
+      process_initial_commands
+    end
+  end
 
-	private
+  private
 
-	def process_initial_game_commands
-		case
-		when play?
-			puts "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue and (y)ellow. Use (q)uit at any time to end the game."
-			game_play
-		when instructions?
-			puts "TO DO: WRITE INSTRUCTIONS"
-		else
-			puts "Invalid command"
-		end
-	end
+  def process_initial_commands
+    case
+    when play?
+      puts "Game start message"
+      @secret_code = ["r", "g", "b", "y"]
+      guess_loop
+    when instructions?
+      puts "Instructions:"
+    when exit?
+      puts "Thanks for playing."
+    else
+      puts "The command was invalid."
+    end
+  end
 
-	def game_play
-			puts "What's your guess:"
-			until win? || exit?
-				@command = gets.strip
-				@guess = command.to_a
-				compare_guess
-			end
-	end
+  def guess_loop
+    @guess_counter = 0
+    until exit? || win?
+      printf "Make a guess: "
+      @command = gets.strip
+      @guess = @command.scan(/./)
+      case 
+      when input_is_too_long
+        puts "guess should be 4 letters long"
+      when input_is_too_short
+        puts "guess should be 4 letters long"
+      else
+        compare_guess
+        @guess_counter += 1
+      end
+    end
+  end
 
-	def compare_guess
-		case
-		when exit?
-			puts "Exiting"
-		when less_characters_than_target?
-			puts "Your guess is too short! Try again."
-		when more_characters_than_target?
-			puts "Your guess is too long! Try again."
-		when win?
-			puts "Winnner"
-		when wrong?
-			puts "Wrong messages"
-		end
+  def compare_guess
+    case
+    when win?
+      puts "YOU WIN!"
+    when wrong?
+      comparison
+      puts "you had #{@correct_color_count} correct colors in #{@correct_position_count} correct positions"
+    end
+  end
 
-		@guess = command.to_a
-		guess.each_with_index 
-				
+  def comparison
+    @correct_position_count = 0
+    @correct_color_count = 0
+    @guess.length.times do |iteration|
+      if @guess[iteration - 1] == @secret_code[iteration - 1]
+        @correct_position_count += 1
+      end
+    end
+    color_matches = @secret_code.find_all { |letter| @guess.include?(letter) }
+    @correct_color_count += color_matches.length
+  end
 
-				case
-				end
-	end
+  def play?
+    command == "p"
+  end
 
-	def play?
-		command == "p"
-	end
+  def instructions?
+    command == "i"
+  end
 
-	def instructions?
-		command == "i"
-	end
+  def exit?
+    command == "q" || command == "quit"
+  end
 
-	def finished?
-		command == "q" || command == "quit"
-	end
+  def win?
+    @guess == @secret_code
+  end
 
-	def win?
-		guess == target_sequence
+  def input_is_too_long
+    @guess.length > 4
+  end
 
-	def exit?
-		command == "q" || command == "quit"
-	end 
+  def input_is_too_short
+    @guess.length < 4
+  end
+
+  def wrong?
+    @guess != @secret_code
+  end
 
 end
+
