@@ -1,51 +1,34 @@
 class Game
-  attr_reader :command
-              :guess
-              :secret_sequence
+  attr_reader :printer,
+              :guess,
+              :secret_code,
+              :guess_counter,
+              :position_count,
+              :color_count,
+              :command,
+              :start_time,
+              :win_time,
+              :game_time
 
-  def initialize
-    @command         = ""
-    @guess           = ""
-    @secret_code     = []
+  def initialize(printer = MessagePrinter.new)
+    @printer                = printer
+    @guess                  = ""
+    @secret_code            = SecretCode.new.generate_code
+    @guess_counter          = 1
+    @command                = ""
   end
 
-  def start
-    puts "Welcome to MASTERMIND"
-    until exit?
-      puts "(p)lay starts a game\n(q)uit ends a game\n(i)nstructions gives you instructions."
-      @command = gets.strip
-      process_initial_commands
-    end
-  end
-
-  private
-
-  def process_initial_commands
-    case
-    when play?
-      puts "Game start message"
-      @secret_code = ["r", "g", "b", "y"]
-      guess_loop
-    when instructions?
-      puts "Instructions:"
-    when exit?
-      puts "Thanks for playing."
-    else
-      puts "The command was invalid."
-    end
-  end
-
-  def guess_loop
-    @guess_counter = 0
+  def play
+      printer.game_start
     until exit? || win?
-      printf "Make a guess: "
-      @command = gets.strip
+      @start_time = Time.new
+      @command = gets.strip 
       @guess = @command.scan(/./)
       case 
       when input_is_too_long
-        puts "guess should be 4 letters long"
+        printer.invalid_character_length
       when input_is_too_short
-        puts "guess should be 4 letters long"
+        printer.invalid_character_length
       else
         compare_guess
         @guess_counter += 1
@@ -56,31 +39,29 @@ class Game
   def compare_guess
     case
     when win?
-      puts "YOU WIN!"
+      @win_time = Time.new
+      printer.win(secret_code, guess_counter, game_minutes, game_seconds)
     when wrong?
       comparison
-      puts "you had #{@correct_color_count} correct colors in #{@correct_position_count} correct positions"
+      printer.comparison_results(position_count, color_count)
+      printer.guess_number(guess_counter)
     end
   end
 
   def comparison
-    @correct_position_count = 0
-    @correct_color_count = 0
-    @guess.length.times do |iteration|
-      if @guess[iteration - 1] == @secret_code[iteration - 1]
-        @correct_position_count += 1
+    @position_count = 0
+    @color_count    = 0
+
+    similar_positions = secret_code.zip(guess).map { |code_letter, guess_letter| code_letter == guess_letter }
+    @color_count += similar_positions.count(true)
+
+    secret_code_copy = secret_code.map { |color| color }
+    color_matches = guess.each do |color|
+      if secret_code_copy.include?(color)
+        @position_count += 1
+        secret_code_copy.slice!(secret_code_copy.index(color))
       end
     end
-    color_matches = @secret_code.find_all { |letter| @guess.include?(letter) }
-    @correct_color_count += color_matches.length
-  end
-
-  def play?
-    command == "p"
-  end
-
-  def instructions?
-    command == "i"
   end
 
   def exit?
@@ -88,20 +69,26 @@ class Game
   end
 
   def win?
-    @guess == @secret_code
+    guess == secret_code
   end
 
   def input_is_too_long
-    @guess.length > 4
+    command.length > 4
   end
 
   def input_is_too_short
-    @guess.length < 4
+    command.length < 4
   end
 
   def wrong?
-    @guess != @secret_code
+    guess != secret_code
   end
 
-end
+  def game_minutes
+    (win_time - start_time).to_i / 60
+  end
 
+  def game_seconds
+    (win_time - start_time).to_i % 60
+  end
+end

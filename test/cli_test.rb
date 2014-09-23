@@ -2,13 +2,14 @@ gem 'minitest', '~> 5.2'
 require 'minitest/autorun'
 require 'minitest/pride'
 require '../lib/cli.rb'
-require ''
+require 'stringio'
 
-class GameTest < Minitest::Test
+class TestCLI
+	def test_game_starts
 
-	def test_compares_guesses
-		Game.new.start
-
-		
 	end
+
+
 end
+
+
