@@ -1,6 +1,6 @@
 class MessagePrinter
   def introduction
-    puts "Welcome to MASTERMIND"
+		puts "Welcome to MASTERMIND"
     program_instructions
   end
 
@@ -35,7 +35,12 @@ class MessagePrinter
 
 	def win(secrect_code, guess_counter, game_minutes, game_seconds)
 		puts "Congratulations, you've cracked the code #{secrect_code} in #{guess_counter} guesses in #{game_minutes} minutes and #{game_seconds} seconds."
-		puts restart_game_instructions
+		restart_game_instructions
+	end
+
+	def too_many_guesses
+		puts "Yout couldn't crack the code in 10 guesses."
+		restart_game_instructions
 	end
 
 	def restart_game_instructions
@@ -43,7 +48,7 @@ class MessagePrinter
 	end
 
 	def comparison_results(color_count, position_count)
-		puts "color: #{color_count}. position: #{position_count}"
+		puts "Correct colors: #{color_count}. Correct position: #{position_count}"
 	end
 
 	def guess_number(guess_counter)
