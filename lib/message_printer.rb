@@ -65,15 +65,9 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 		puts "The command was invalid."
 	end
 
-<<<<<<< HEAD
-	def invalid_character_length
-		puts "Your guess should be 4 letters long."
-		##switch with difficulty levels
-=======
 	def invalid_characters
 			puts "Your guess is not a valid format. 
 			\rIt's not the correct length or you're using the wrong letters."
->>>>>>> thursday_noodling
 	end
 
 	def win(secret_code, guess_counter, game_minutes, game_seconds)
