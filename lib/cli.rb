@@ -4,7 +4,6 @@ class CLI
 	def initialize
 		@command = ""
 		@printer = MessagePrinter.new
-		@difficulty = ""
 	end
 
 	def start
@@ -22,19 +21,22 @@ class CLI
 		when instructions?
 			printer.instructions
 		when play_beginner?
-			game = Game.new(printer)
-			game.play
+			@difficulty = "beginner"
+			select_game_type(difficulty)
 		when play_intermediate?
 			@difficulty = "intermediate"
-			game = Game.new(printer, difficulty)
-			game.play
+			select_game_type(difficulty)
 		when play_advanced?
 			@difficulty = "advanced"
-			game = Game.new(printer, difficulty)
-			game.play
+			select_game_type(difficulty)
 		else
 			printer.invalid_command
 		end
+	end
+
+	def select_game_type(difficulty)
+		game = Game.new(printer, difficulty)
+		game.play
 	end
 
 	def quit?

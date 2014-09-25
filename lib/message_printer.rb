@@ -11,10 +11,11 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
   end
 
 	def program_instructions
-		puts "\nWould you like to:
-		\r-play a (b)eginner game
+		puts "\nWould you like to play a game?
+		\r-(b)eginner game
 		\r-i(n)termediate game
 		\r-(a)dvanced game
+		\nYou can also:
 		\r-read the (i)nstructions
 		\r-or (q)uit?"
 	end
@@ -71,7 +72,7 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 	def win(secret_code, guess_counter, game_minutes, game_seconds)
 		puts Rainbow("Congratulations").red.bright + ", you've cracked the code. 
 		\rIt took #{guess_counter} guesses in #{game_minutes} minutes and #{game_seconds} seconds."
-		restart_game_instructions
+		program_instructions
 	end
 
 	def too_many_guesses
