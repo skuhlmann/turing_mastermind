@@ -10,7 +10,7 @@ class Game
 							:exact_count,
 							:difficulty
 
-	def initialize(printer, difficulty)
+	def initialize(printer, difficulty = "beginner")
 		@command        = ""
 		@printer 			  = printer
 		@guess_checker  = GuessChecker.new
@@ -29,12 +29,16 @@ class Game
 			@guess = @command.split('')
 			validate_input
 		end
+		printer.too_many_guesses if lose?
 	end
 
 	def validate_input
-		if guess_checker.valid_length?(guess, secret_code)
+		case  
+		when guess_checker.valid_length?(guess, secret_code)
 			@guess_counter += 1
 			compare_input
+		when quit?
+			printer.restart_game_instructions
 		else
 			printer.invalid_character_length
 		end

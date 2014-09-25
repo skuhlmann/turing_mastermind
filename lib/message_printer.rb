@@ -75,12 +75,13 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 	end
 
 	def too_many_guesses
-		puts "Yout couldn't crack the code in 10 guesses."
-		restart_game_instructions
+		puts "\nYou couldn't crack the code in 10 guesses."
+		program_instructions
 	end
 
 	def restart_game_instructions
-		puts "Would you like to (p)lay again or (q)uit?"
+		puts "\nYou're a quitter."
+		program_instructions
 	end
 
 	def comparison_results(color_count, exact_count)

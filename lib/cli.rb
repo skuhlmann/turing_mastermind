@@ -22,8 +22,7 @@ class CLI
 		when instructions?
 			printer.instructions
 		when play_beginner?
-			@difficulty = "beginner"
-			game = Game.new(printer, difficulty)
+			game = Game.new(printer)
 			game.play
 		when play_intermediate?
 			@difficulty = "intermediate"
