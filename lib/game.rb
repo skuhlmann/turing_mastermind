@@ -37,13 +37,13 @@ class Game
 
 	def validate_input
 		case  
-		when guess_checker.valid_length?(guess, secret_code)
+		when guess_checker.valid?(guess, secret_code)
 			@guess_counter += 1
 			compare_input
 		when quit?
 			printer.restart_game_instructions
 		else
-			printer.invalid_character_length
+			printer.invalid_characters
 		end
 	end
 
@@ -52,17 +52,14 @@ class Game
 			timer.end
       printer.win(secret_code, guess_counter, timer.game_minutes, timer.game_seconds)
     else
-    	@color_count = 0
-    	@exact_count = 0
     	give_guess_feedback
     end
 	end
 
 	def give_guess_feedback
-		@color_count += guess_checker.color_matches(guess, secret_code)
-    @exact_count += guess_checker.exact_matches(guess, secret_code)
-   	printer.comparison_results(color_count, exact_count)
-    printer.guess_number(guess_counter)
+		color_count = guess_checker.color_matches(guess, secret_code)
+    exact_count = guess_checker.exact_matches(guess, secret_code)
+   	printer.comparison_results(color_count, exact_count, guess_counter)
 	end
 
 	def win?

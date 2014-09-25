@@ -16,12 +16,13 @@ class GuessCheckerTest < Minitest::Test
 
 	def test_valid_guess_inputs
 		guess = ["h", "g", "g", "g"]
+		guess_2 = ["g", "g", "g", "g"]
 		secret_code 	= ["b", "y", "r", "g"]
 
 		guess_checker = GuessChecker.new
 
 		refute guess_checker.valid_input?(guess, secret_code)
-
+		assert guess_checker.valid_input?(guess_2, secret_code)
 	end
 
 	def test_returns_win

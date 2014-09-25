@@ -2,12 +2,12 @@ class GuessChecker
 	def initialize
 	end
 
-	def valid_length?(guess, secret_code)
-		secret_code.count == guess.count
+	def valid?(guess, secret_code)
+		secret_code.count == guess.count && guess.all? { |color| "rgbyop".include?(color) }
 	end
 
 	def valid_input?(guess, secret_code)
-		guess.
+		guess.all? { |color| "rgbyop".include?(color) }
 	end
 
 	def win?(guess, secret_code)
@@ -28,5 +28,4 @@ class GuessChecker
 			end
 		end	
 	end
-
 end

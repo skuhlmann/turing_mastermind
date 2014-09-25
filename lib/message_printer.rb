@@ -65,8 +65,9 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 		puts "The command was invalid."
 	end
 
-	def invalid_character_length
-		puts "Your guess should be 4 letters long."
+	def invalid_characters
+			puts "Your guess is not a valid format. 
+			\rIt's not the correct length or you're using the wrong letters."
 	end
 
 	def win(secret_code, guess_counter, game_minutes, game_seconds)
@@ -85,11 +86,9 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 		program_instructions
 	end
 
-	def comparison_results(color_count, exact_count)
-		puts "Correct colors: #{color_count}. Correct position: #{exact_count}"
+	def comparison_results(color_count, exact_count, guess_counter)
+		puts "Correct colors: #{color_count}. Correct position: #{exact_count}
+		\rGuesses: #{guess_counter} "
 	end
 
-	def guess_number(guess_counter)
-		puts "You've taken #{guess_counter} guesses."
-	end
 end
