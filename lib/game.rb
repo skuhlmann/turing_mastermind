@@ -29,7 +29,10 @@ class Game
 			@guess = @command.split('')
 			validate_input
 		end
-		printer.too_many_guesses if lose?
+		if lose?
+			timer.end
+			printer.too_many_guesses(timer.game_minutes, timer.game_seconds)
+		end
 	end
 
 	def validate_input

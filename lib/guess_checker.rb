@@ -6,6 +6,10 @@ class GuessChecker
 		secret_code.count == guess.count
 	end
 
+	def valid_input?(guess, secret_code)
+		guess.
+	end
+
 	def win?(guess, secret_code)
 		guess == secret_code
 	end

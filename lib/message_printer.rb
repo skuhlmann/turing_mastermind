@@ -75,8 +75,8 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 		program_instructions
 	end
 
-	def too_many_guesses
-		puts "\nYou couldn't crack the code in 10 guesses."
+	def too_many_guesses(game_minutes, game_seconds)
+		puts "\nYou couldn't crack the code in 10 guesses in #{game_minutes} minutes and #{game_seconds} seconds."
 		program_instructions
 	end
 

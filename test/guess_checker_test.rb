@@ -11,7 +11,17 @@ class GuessCheckerTest < Minitest::Test
 
 		guess_checker = GuessChecker.new
 
-		refute_equal true, guess_checker.valid_length?(guess, secret_code)
+		refute guess_checker.valid_length?(guess, secret_code)
+	end
+
+	def test_valid_guess_inputs
+		guess = ["h", "g", "g", "g"]
+		secret_code 	= ["b", "y", "r", "g"]
+
+		guess_checker = GuessChecker.new
+
+		refute guess_checker.valid_input?(guess, secret_code)
+
 	end
 
 	def test_returns_win
