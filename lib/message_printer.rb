@@ -67,6 +67,7 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 
 	def invalid_character_length
 		puts "Your guess should be 4 letters long."
+		##switch with difficulty levels
 	end
 
 	def win(secret_code, guess_counter, game_minutes, game_seconds)

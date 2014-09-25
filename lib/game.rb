@@ -51,6 +51,7 @@ class Game
     else
     	@color_count = 0
     	@exact_count = 0
+    	#use local variables - not instance
     	give_guess_feedback
     end
 	end
@@ -60,6 +61,7 @@ class Game
     @exact_count += guess_checker.exact_matches(guess, secret_code)
    	printer.comparison_results(color_count, exact_count)
     printer.guess_number(guess_counter)
+    #combine the 2 above
 	end
 
 	def win?
