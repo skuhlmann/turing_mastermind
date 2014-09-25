@@ -2,27 +2,27 @@ class Game
 	attr_reader :command,
 							:secret_code,
 							:guess_checker,
-							:start_time,
 							:guess_counter,
 							:guess,
 							:printer,
 							:color_count,
 							:exact_count,
-							:difficulty
+							:difficulty,
+							:timer
 
 	def initialize(printer, difficulty = "beginner")
 		@command        = ""
 		@printer 			  = printer
 		@guess_checker  = GuessChecker.new
 		@secret_code 	  = CodeGenerator.new(difficulty).get_secret_code
-		@start_time     = Time.new
 		@guess_counter  = 0
-		@guess          = ""
 		@difficulty		  = difficulty
+		@timer          = Timer.new
 	end
 
 	def play
 		printer.game_start(difficulty)
+		timer.start
 		until finished?
 			printer.guess_prompt
 			@command = gets.strip
@@ -46,8 +46,8 @@ class Game
 
 	def compare_input
 		if guess_checker.win?(guess, secret_code)
-			@end_time = Time.new
-      printer.win(secret_code, guess_counter, game_minutes, game_seconds)
+			timer.end
+      printer.win(secret_code, guess_counter, timer.game_minutes, timer.game_seconds)
     else
     	@color_count = 0
     	@exact_count = 0
@@ -69,14 +69,6 @@ class Game
 	def lose?
 		@guess_counter == 10
 	end
-
-	def game_minutes
-    (@end_time - @start_time).to_i / 60
-  end
-
-  def game_seconds
-    (@end_time - @start_time).to_i % 60
-  end
 
 	def finished?
 		quit? || win? || lose?

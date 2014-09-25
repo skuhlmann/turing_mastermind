@@ -26,6 +26,14 @@ class GameTest < Minitest::Test
 
 	def test_plays_until_quit
 		skip
+
+		printer = MessagePrinter.new
+		game = Game.new(printer)
+		game.play
+
+		@command = 'quit'
+
+		##need to complete
 	end
 
 	def test_plays_until_loses
