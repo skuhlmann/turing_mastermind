@@ -1,9 +1,10 @@
 class CLI
-	attr_reader :command, :printer
+	attr_reader :command, :printer, :difficulty
 
 	def initialize
 		@command = ""
 		@printer = MessagePrinter.new
+		@difficulty = ""
 	end
 
 	def start
@@ -20,8 +21,17 @@ class CLI
 			printer.quit
 		when instructions?
 			printer.instructions
-		when play?
-			game = Game.new(printer)
+		when play_beginner?
+			@difficulty = "beginner"
+			game = Game.new(printer, difficulty)
+			game.play
+		when play_intermediate?
+			@difficulty = "intermediate"
+			game = Game.new(printer, difficulty)
+			game.play
+		when play_advanced?
+			@difficulty = "advanced"
+			game = Game.new(printer, difficulty)
 			game.play
 		else
 			printer.invalid_command
@@ -36,7 +46,16 @@ class CLI
 		command == "i"		
 	end
 
-	def play?
-		command == "p"
+	def play_beginner?
+		command == "b"
 	end
+
+	def play_intermediate?
+		command == "n"
+	end
+
+	def play_advanced?
+		command == "a"
+	end
+
 end

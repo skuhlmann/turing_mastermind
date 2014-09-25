@@ -7,20 +7,22 @@ class Game
 							:guess,
 							:printer,
 							:color_count,
-							:exact_count
+							:exact_count,
+							:difficulty
 
-	def initialize(printer)
+	def initialize(printer, difficulty)
 		@command        = ""
 		@printer 			  = printer
 		@guess_checker  = GuessChecker.new
-		@secret_code 	  = CodeGenerator.new.get_secret_code
+		@secret_code 	  = CodeGenerator.new(difficulty).get_secret_code
 		@start_time     = Time.new
 		@guess_counter  = 0
 		@guess          = ""
+		@difficulty		  = difficulty
 	end
 
 	def play
-		printer.game_start
+		printer.game_start(difficulty)
 		until finished?
 			printer.guess_prompt
 			@command = gets.strip

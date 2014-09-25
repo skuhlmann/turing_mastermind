@@ -11,11 +11,36 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
   end
 
 	def program_instructions
-		puts "\nWould you like to (p)lay, read the (i)nstructions or (q)uit?"
+		puts "\nWould you like to:
+		\r-play a (b)eginner game
+		\r-i(n)termediate game
+		\r-(a)dvanced game
+		\r-read the (i)nstructions
+		\r-or (q)uit?"
 	end
 
-	def game_start
-		puts "\nI have generated a beginner sequence with four elements made up of: " + Rainbow("(r)ed, ").red + Rainbow("(g)reen, ").green + Rainbow("(b)lue" ).blue + " and " + Rainbow("(y)ellow. ").yellow + "Enter a combination of those colors to try and crack my code, by entering a combination of r,g,b and y. Use (q)uit at any time to end the game."
+	def difficulty_prompt
+		puts "\n Would you like a (b)eginner, (i)ntermediate, or (a)davanced game?"
+	end
+
+	def game_start(difficulty)
+		case 
+		when difficulty == "beginner"
+			puts "\nI have generated a beginner sequence with four elements made up of: 
+			\r(r)ed, (g)reen, (b)lue and (y)ellow. Enter a combination of those colors 
+			\rto try and crack my code, by entering a combination of r,g,b and y.
+			\rUse (q)uit at any time to end the game."
+		when difficulty == "intermediate"
+			puts "\nI have generated an intermediate sequence with five elements made up of: 
+			\r(r)ed, (g)reen, (b)lue, (y)ellow and (o)range. Enter a combination of those colors 
+			\rto try and crack my code, by entering a combination of r,g,b and y.
+			\rUse (q)uit at any time to end the game."
+		when difficulty == "advanced"
+			puts "\nI have generated an advanced sequence with eight elements made up of: 
+			\r(r)ed, (g)reen, (b)lue,(y)ellow, (o)range and (p)ink. Enter a combination of those colors 
+			\rto try and crack my code, by entering a combination of r,g,b and y.
+			\rUse (q)uit at any time to end the game."
+		end
 	end
 
 	def guess_prompt
@@ -23,7 +48,11 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 	end
 
 	def instructions
-		puts "The object of MASTERMIND is to guess a secret combination of colors in a specific order. The computer mastermind will create this secret code and you will be prompted to enter your guess in the form of letters (ex: 'r' for red, 'b' for blue). Each time you submit a guess the mastermind will let you know how close you are. Use (q)uit at any time to end the game."
+		puts "The object of MASTERMIND is to guess a secret combination of colors in a specific order. 
+		\rThe computer mastermind will create this secret code and you will be prompted to enter your 
+		\rguess:
+		\r- Only use lowercase letters (ex: 'r' for red, 'b' for blue). 
+		\r- Use (q)uit at any time to end the game."
 		program_instructions
 	end
 
@@ -40,7 +69,8 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 	end
 
 	def win(secret_code, guess_counter, game_minutes, game_seconds)
-		puts Rainbow("Congratulations").red.bright + ", you've cracked the code in #{guess_counter} guesses in #{game_minutes} minutes and #{game_seconds} seconds."
+		puts Rainbow("Congratulations").red.bright + ", you've cracked the code. 
+		\rIt took #{guess_counter} guesses in #{game_minutes} minutes and #{game_seconds} seconds."
 		restart_game_instructions
 	end
 
