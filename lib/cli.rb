@@ -1,45 +1,42 @@
 class CLI
-  attr_reader :command, :printer
+	attr_reader :command, :printer
 
-  def initialize
-    @command = ""
-    @printer = MessagePrinter.new
-  end
+	def initialize
+		@command = ""
+		@printer = MessagePrinter.new
+	end
 
-  def start
-    printer.introduction
-    until exit?
-      @command = gets.strip
-      process_initial_commands
-    end
-  end
+	def start
+		printer.introduction
+		until quit?
+			@command = gets.strip
+			process_program_instructions
+		end
+	end
 
-  def process_initial_commands
-    case
-    when play?
-      game = Game.new(printer)
-      game.play
-    when instructions?
-      printer.instructions
-    when exit?
-      printer.exit
-    else
-      printer.invalid_command
-    end
-  end
+	def process_program_instructions
+		case
+		when quit?
+			printer.quit
+		when instructions?
+			printer.instructions
+		when play?
+			game = Game.new(printer)
+			game.play
+		else
+			printer.invalid_command
+		end
+	end
 
-  def play?
-    command == "p"
-  end
+	def quit?
+		 command == "q" || command == "quit"
+	end
 
-  def instructions?
-    command == "i"
-  end
+	def instructions?
+		command == "i"		
+	end
 
-  def exit?
-    command == "q" || command == "quit"
-  end
-
-
+	def play?
+		command == "p"
+	end
 end
-

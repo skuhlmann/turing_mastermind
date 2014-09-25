@@ -1,27 +1,33 @@
+require 'rainbow'
+
 class MessagePrinter
   def introduction
-		puts "Welcome to MASTERMIND"
-    program_instructions
+		puts Rainbow("MM    MM   AAA    SSSSS  TTTTTTT EEEEEEE RRRRRR  MM    MM IIIII NN   NN DDDDD   
+MMM  MMM  AAAAA  SS        TTT   EE      RR   RR MMM  MMM  III  NNN  NN DD  DD  
+MM MM MM AA   AA  SSSSS    TTT   EEEEE   RRRRRR  MM MM MM  III  NN N NN DD   DD 
+MM    MM AAAAAAA      SS   TTT   EE      RR  RR  MM    MM  III  NN  NNN DD   DD 
+MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD").red
+		program_instructions
   end
 
 	def program_instructions
-		puts "Would you like to (p)lay, read the (i)nstructions or (q)uit?"
+		puts "\nWould you like to (p)lay, read the (i)nstructions or (q)uit?"
 	end
 
 	def game_start
-		puts "I have generated a beginner sequence with four elements made up of: (r)ed, (g)reen, (b)lue and (y)ellow. Enter a combination of those colors to try and crack my code. Use (q)uit at any time to end the game."
-		guess_prompt
+		puts "\nI have generated a beginner sequence with four elements made up of: " + Rainbow("(r)ed, ").red + Rainbow("(g)reen, ").green + Rainbow("(b)lue" ).blue + " and " + Rainbow("(y)ellow. ").yellow + "Enter a combination of those colors to try and crack my code, by entering a combination of r,g,b and y. Use (q)uit at any time to end the game."
 	end
 
 	def guess_prompt
-		printf "What's your guess? "
+		printf "\nWhat's your guess? "
 	end
 
 	def instructions
 		puts "The object of MASTERMIND is to guess a secret combination of colors in a specific order. The computer mastermind will create this secret code and you will be prompted to enter your guess in the form of letters (ex: 'r' for red, 'b' for blue). Each time you submit a guess the mastermind will let you know how close you are. Use (q)uit at any time to end the game."
+		program_instructions
 	end
 
-	def exit
+	def quit
 		puts "Thanks for playing."
 	end
 
@@ -33,8 +39,8 @@ class MessagePrinter
 		puts "Your guess should be 4 letters long."
 	end
 
-	def win(secrect_code, guess_counter, game_minutes, game_seconds)
-		puts "Congratulations, you've cracked the code #{secrect_code} in #{guess_counter} guesses in #{game_minutes} minutes and #{game_seconds} seconds."
+	def win(secret_code, guess_counter, game_minutes, game_seconds)
+		puts Rainbow("Congratulations").red.bright + ", you've cracked the code in #{guess_counter} guesses in #{game_minutes} minutes and #{game_seconds} seconds."
 		restart_game_instructions
 	end
 
@@ -47,8 +53,8 @@ class MessagePrinter
 		puts "Would you like to (p)lay again or (q)uit?"
 	end
 
-	def comparison_results(color_count, position_count)
-		puts "Correct colors: #{color_count}. Correct position: #{position_count}"
+	def comparison_results(color_count, exact_count)
+		puts "Correct colors: #{color_count}. Correct position: #{exact_count}"
 	end
 
 	def guess_number(guess_counter)
