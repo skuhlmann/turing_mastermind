@@ -29,18 +29,21 @@ class Game
 			@guess = @command.split('')
 			validate_input
 		end
-		printer.too_many_guesses if lose?
+		if lose?
+			timer.end
+			printer.too_many_guesses(timer.game_minutes, timer.game_seconds)
+		end
 	end
 
 	def validate_input
 		case  
-		when guess_checker.valid_length?(guess, secret_code)
+		when guess_checker.valid?(guess, secret_code)
 			@guess_counter += 1
 			compare_input
 		when quit?
 			printer.restart_game_instructions
 		else
-			printer.invalid_character_length
+			printer.invalid_characters
 		end
 	end
 
@@ -49,19 +52,28 @@ class Game
 			timer.end
       printer.win(secret_code, guess_counter, timer.game_minutes, timer.game_seconds)
     else
+<<<<<<< HEAD
     	@color_count = 0
     	@exact_count = 0
     	#use local variables - not instance
+=======
+>>>>>>> thursday_noodling
     	give_guess_feedback
     end
 	end
 
 	def give_guess_feedback
+<<<<<<< HEAD
 		@color_count += guess_checker.color_matches(guess, secret_code)
     @exact_count += guess_checker.exact_matches(guess, secret_code)
    	printer.comparison_results(color_count, exact_count)
     printer.guess_number(guess_counter)
     #combine the 2 above
+=======
+		color_count = guess_checker.color_matches(guess, secret_code)
+    exact_count = guess_checker.exact_matches(guess, secret_code)
+   	printer.comparison_results(color_count, exact_count, guess_counter)
+>>>>>>> thursday_noodling
 	end
 
 	def win?

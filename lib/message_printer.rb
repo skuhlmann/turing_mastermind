@@ -65,9 +65,15 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 		puts "The command was invalid."
 	end
 
+<<<<<<< HEAD
 	def invalid_character_length
 		puts "Your guess should be 4 letters long."
 		##switch with difficulty levels
+=======
+	def invalid_characters
+			puts "Your guess is not a valid format. 
+			\rIt's not the correct length or you're using the wrong letters."
+>>>>>>> thursday_noodling
 	end
 
 	def win(secret_code, guess_counter, game_minutes, game_seconds)
@@ -76,8 +82,8 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 		program_instructions
 	end
 
-	def too_many_guesses
-		puts "\nYou couldn't crack the code in 10 guesses."
+	def too_many_guesses(game_minutes, game_seconds)
+		puts "\nYou couldn't crack the code in 10 guesses in #{game_minutes} minutes and #{game_seconds} seconds."
 		program_instructions
 	end
 
@@ -86,11 +92,9 @@ MM    MM AA   AA  SSSSS    TTT   EEEEEEE RR   RR MM    MM IIIII NN   NN DDDDDD")
 		program_instructions
 	end
 
-	def comparison_results(color_count, exact_count)
-		puts "Correct colors: #{color_count}. Correct position: #{exact_count}"
+	def comparison_results(color_count, exact_count, guess_counter)
+		puts "Correct colors: #{color_count}. Correct position: #{exact_count}
+		\rGuesses: #{guess_counter} "
 	end
 
-	def guess_number(guess_counter)
-		puts "You've taken #{guess_counter} guesses."
-	end
 end
